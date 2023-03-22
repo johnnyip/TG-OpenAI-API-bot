@@ -51,7 +51,11 @@ async function handleCommand(msg) {
     switch (command) {
         case '/image':
             response = await openaiImage(commandText);
-            bot.sendPhoto(chatId, response, { caption: commandText });
+            if (response.includes("https://")) {
+                bot.sendPhoto(chatId, response, { caption: commandText });
+            } else {
+                bot.sendMessage(chatId, response);
+            }
             break;
         case '/chat':
             response = await openaiChat(commandText);
