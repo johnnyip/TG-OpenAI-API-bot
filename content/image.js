@@ -25,7 +25,7 @@ async function openaiImage(inputText) {
         const outputMessage = data.data[0].url;
         return outputMessage;
     } else {
-        throw new Error(`OpenAI API request failed: ${response.status} ${response.statusText}`);
+        return(`OpenAI API request failed: ${response.status} ${response.statusText}`);
     }
 }
 

@@ -25,7 +25,7 @@ async function openaiChatJailBreak(inputText) {
         const outputMessage = data.choices[0].message.content;
         return outputMessage;
     } else {
-        throw new Error(`OpenAI API request failed: ${response.status} ${response.statusText}`);
+        return(`OpenAI API request failed: ${response.status} ${response.statusText}`);
     }
 }
 
