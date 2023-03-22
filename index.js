@@ -38,6 +38,10 @@ async function handleCommand(msg) {
     const commandText = commandParts.slice(1).join(' ').trim();
     console.log("[From] " + chatId)
     console.log("[CommandText] " + commandText)
+    if (commandText === "") {
+        bot.sendMessage(chatId, 'Usage: /' + command + ' <text>');
+        return;
+    }
     let response = ""
 
     switch (command) {
