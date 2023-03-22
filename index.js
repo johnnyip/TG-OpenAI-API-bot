@@ -1,4 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 const openaiChat = require('./content/chat');
 const openaiChatJailBreak = require('./content/chatJB');
 const openaiImage = require('./content/image');
@@ -39,7 +43,7 @@ async function handleCommand(msg) {
     console.log("[From] " + chatId)
     console.log("[CommandText] " + commandText)
     if (commandText === "") {
-        bot.sendMessage(chatId, 'Usage: /' + command + ' <text>');
+        bot.sendMessage(chatId, 'Usage: ' + command + ' <text>');
         return;
     }
     let response = ""

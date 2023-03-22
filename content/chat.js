@@ -1,6 +1,9 @@
 // openai.js
 const fetch = require('cross-fetch');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 async function openaiChat(inputText) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
     const model = 'gpt-3.5-turbo';

@@ -1,6 +1,9 @@
 // openai.js
 const fetch = require('cross-fetch');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 async function openaiImage(inputText) {
     const apiUrl = 'https://api.openai.com/v1/images/generations';
     const prompt = inputText;
