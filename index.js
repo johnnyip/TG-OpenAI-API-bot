@@ -14,9 +14,9 @@ const bot = new TelegramBot(token, { polling: true });
 
 // Set bot commands
 bot.setMyCommands([
-    { command: 'image', description: 'Get a sample image' },
-    { command: 'chat', description: 'Chat with the bot' },
-    { command: 'chatjailbreak', description: 'Enter chat jailbreak mode' },
+    { command: 'i', description: 'Get a sample image' },
+    { command: 'c', description: 'Chat with the bot' },
+    { command: 'cj', description: 'Enter chat jailbreak mode' },
 ]);
 
 
@@ -49,7 +49,7 @@ async function handleCommand(msg) {
     let response = ""
 
     switch (command) {
-        case '/image':
+        case '/i':
             response = await openaiImage(commandText);
             if (response.includes("https://")) {
                 bot.sendPhoto(chatId, response, { caption: commandText });
@@ -57,11 +57,11 @@ async function handleCommand(msg) {
                 bot.sendMessage(chatId, response);
             }
             break;
-        case '/chat':
+        case '/c':
             response = await openaiChat(commandText);
             bot.sendMessage(chatId, response);
             break;
-        case '/chatjailbreak':
+        case '/cj':
             response = await openaiChatJailBreak(commandText);
             bot.sendMessage(chatId, response);
             break;
