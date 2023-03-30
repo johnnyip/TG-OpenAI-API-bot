@@ -4,10 +4,14 @@ const fetch = require('cross-fetch');
 const dotenv = require('dotenv');
 dotenv.config();
 
-async function openaiChat(inputText) {
+async function openaiChat(inputText, quotedMsg) {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
     const model = 'gpt-3.5-turbo';
-    const messages = [{ role: 'user', content: inputText }];
+    const messages = [
+        { role: "assistant", content: quotedMsg },
+        { role: 'user', content: inputText }
+    ];
+
 
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -23,7 +27,7 @@ async function openaiChat(inputText) {
         const outputMessage = data.choices[0].message.content;
         return outputMessage;
     } else {
-        return(`OpenAI API request failed: ${response.status} ${response.statusText}`);
+        return (`OpenAI API request failed: ${response.status} ${response.statusText}`);
     }
 }
 

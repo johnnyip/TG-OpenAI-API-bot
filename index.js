@@ -29,11 +29,7 @@ bot.on('message', (msg) => {
         handleCommand(msg);
     } else {
         bot.sendMessage(chatId, 'Use the command available');
-        if (msg.reply_to_message) {
-            const quotedMsg = msg.reply_to_message;
-            console.log(`User quoted: "${quotedMsg.text}"`);
-          }
-        
+
     }
 });
 
@@ -52,6 +48,11 @@ async function handleCommand(msg) {
         return;
     }
     let response = ""
+    let quotedMsg = "";
+    if (msg.reply_to_message) {
+        quotedMsg = msg.reply_to_message
+    }
+
 
     switch (command) {
         case '/i':
@@ -63,11 +64,11 @@ async function handleCommand(msg) {
             }
             break;
         case '/c':
-            response = await openaiChat(commandText);
+            response = await openaiChat(commandText, quotedMsg);
             bot.sendMessage(chatId, response);
             break;
         case '/cj':
-            response = await openaiChatJailBreak(commandText);
+            response = await openaiChatJailBreak(commandText, quotedMsg);
             bot.sendMessage(chatId, response);
             break;
         default:
