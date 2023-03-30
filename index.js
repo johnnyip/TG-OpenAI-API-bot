@@ -28,8 +28,11 @@ bot.on('message', (msg) => {
     if (msg.text.startsWith('/')) {
         handleCommand(msg);
     } else {
-        bot.sendMessage(chatId, 'Use the command available');
-
+        bot.sendMessage(chatId, 'Use the command available', { reply_to_message_id: msg.message_id });
+        if (msg.reply_to_message) {
+            // console.log(msg.reply_to_message)
+            // console.log(msg)
+        }
     }
 });
 
@@ -49,8 +52,10 @@ async function handleCommand(msg) {
     }
     let response = ""
     let quotedMsg = "";
+
     if (msg.reply_to_message) {
-        quotedMsg = msg.reply_to_message
+        console.log(msg.reply_to_message)
+        quotedMsg = msg.reply_to_message.text
     }
 
 
@@ -58,21 +63,24 @@ async function handleCommand(msg) {
         case '/i':
             response = await openaiImage(commandText);
             if (response.includes("https://")) {
-                bot.sendPhoto(chatId, response, { caption: commandText });
+                bot.sendPhoto(chatId, response, {
+                    caption: commandText,
+                    reply_to_message_id: msg.message_id
+                });
             } else {
-                bot.sendMessage(chatId, response);
+                bot.sendMessage(chatId, response, { reply_to_message_id: msg.message_id });
             }
             break;
         case '/c':
             response = await openaiChat(commandText, quotedMsg);
-            bot.sendMessage(chatId, response);
+            bot.sendMessage(chatId, response, { reply_to_message_id: msg.message_id });
             break;
         case '/cj':
             response = await openaiChatJailBreak(commandText, quotedMsg);
-            bot.sendMessage(chatId, response);
+            bot.sendMessage(chatId, response, { reply_to_message_id: msg.message_id });
             break;
         default:
-            bot.sendMessage(chatId, 'Unknown command: ' + command);
+            bot.sendMessage(chatId, 'Unknown command: ' + command, { reply_to_message_id: msg.message_id });
     }
 
     console.log('[response] ' + response + "\n")

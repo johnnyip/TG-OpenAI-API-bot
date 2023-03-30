@@ -24,7 +24,7 @@ async function openaiChat(inputText, quotedMsg) {
 
     if (response.ok) {
         const data = await response.json();
-        const outputMessage = data.choices[0].message.content;
+        const outputMessage = data.choices[0].message.content + "\n(token: " + data.usage.total_tokens + ")";
         return outputMessage;
     } else {
         return (`OpenAI API request failed: ${response.status} ${response.statusText}`);
