@@ -29,6 +29,11 @@ bot.on('message', (msg) => {
         handleCommand(msg);
     } else {
         bot.sendMessage(chatId, 'Use the command available');
+        if (msg.reply_to_message) {
+            const quotedMsg = msg.reply_to_message;
+            console.log(`User quoted: "${quotedMsg.text}"`);
+          }
+        
     }
 });
 
