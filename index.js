@@ -23,6 +23,7 @@ bot.setMyCommands([
 // Listen for any message
 bot.on('message', (msg) => {
     const chatId = msg.chat.id;
+    console.log(chatId);
 
     // Check if the message is a command
     if (msg.text.startsWith('/')) {
