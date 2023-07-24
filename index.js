@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const openaiChat = require('./content/chat');
+const openaiChat_GPT4 = require('./content/chat_GPT4');
 const openaiChatJailBreak = require('./content/chatJB');
 const openaiImage = require('./content/image');
 
@@ -16,7 +17,8 @@ const bot = new TelegramBot(token, { polling: true });
 bot.setMyCommands([
     { command: 'i', description: 'Get a sample image' },
     { command: 'c', description: 'Chat with the bot' },
-    { command: 'cj', description: 'Enter chat jailbreak mode' },
+    { command: 'c4', description: 'Chat with the GPT-4 bot' },
+    { command: 'cj', description: 'Enter chat jailbreak mode (GPT-3.5)' },
 ]);
 
 
@@ -74,6 +76,10 @@ async function handleCommand(msg) {
             break;
         case '/c':
             response = await openaiChat(commandText, quotedMsg);
+            bot.sendMessage(chatId, response, { reply_to_message_id: msg.message_id });
+            break;
+        case '/c4':
+            response = await openaiChat_GPT4(commandText, quotedMsg);
             bot.sendMessage(chatId, response, { reply_to_message_id: msg.message_id });
             break;
         case '/cj':
