@@ -1,6 +1,6 @@
 # TG-OpenAI-API-bot
 A simple Telegram Chatbot using the OpenAI API, hosted and pay by yourself, 
-
+ 
 ## Screenshots
 ![](./img/demo.png)
 
